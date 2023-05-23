@@ -25,40 +25,35 @@ function createCard(name, location, description, pictureUrl, startDate, endDate)
 window.addEventListener('DOMContentLoaded', async () => {
     const url = 'http://localhost:8000/api/conferences/';
     const columns = document.querySelectorAll('.col');
+    const row = document.querySelector('.row');
 
     try {
         const response = await fetch(url);
 
         if (!response.ok) {
-
-            // let alertDiv = document.createElement('div');
-            // alertDiv.classList.add('alert', 'alert-danger');
-            // alertDiv.textContent = 'Failed to fetch conferences. Please refresh the page.';
-
-            // document.body.appendChild(alertDiv);
-        console.log("bad response")
+            let alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-danger');
+            alertDiv.textContent = 'Failed to fetch conferences. Please buy a dog to help.';
+            document.body.appendChild(alertDiv);
         } else {
         const data = await response.json();
         let index = 0;
-
-        const row = document.querySelector('.row');
 
         for (let conference of data.conferences) {
             const detailUrl = `http://localhost:8000${conference.href}`;
             const detailResponse = await fetch(detailUrl);
                 if (detailResponse.ok) {
-                const details = await detailResponse.json();
-                const name = details.conference.name;
-                const description = details.conference.description;
-                const pictureUrl = details.conference.location.picture_url;
-                // const column = document.querySelector('.col');
-                // column.innerHTML += html;
-                const startDate = details.conference.starts;
-                const endDate = details.conference.ends;
+                    const details = await detailResponse.json();
+                    const name = details.conference.name;
+                    const location = details.conference.location.name;
+                    const description = details.conference.description;
+                    const pictureUrl = details.conference.location.picture_url;
+                    // const column = document.querySelector('.col');
+                    // column.innerHTML += html;
+                    const startDate = details.conference.starts;
+                    const endDate = details.conference.ends;
 
-                const location = details.conference.location.name;
-
-                const html = createCard(name, location, description, pictureUrl, startDate, endDate)
+                    const html = createCard(name, location, description, pictureUrl, startDate, endDate)
 
                 if (index === 3) index = 0;
 
@@ -71,6 +66,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (e) {
         console.error(e)
+        let alertDiv = document.createElement('div');
+        alertDiv.classList.add('alert', 'alert-danger');
+        alertDiv.textContent = 'Failed to fetch conferences. Please throw your PC out of the window.';
+        document.body.appendChild(alertDiv);
     }
 
 });
