@@ -1,15 +1,11 @@
 window.addEventListener('DOMContentLoaded', async () => {
-    // console.log("DOM fully loaded and parsed");
-
     const url = 'http://localhost:8000/api/states/';
-    // console.log(`API Url: ${url}`);
-
     const response = await fetch(url);
-    // console.log(`Response ok? ${response.ok}`);
+
     if (response.ok) {
         const data = await response.json();
-    // console.log(`Data: ${JSON.stringify(data)}`);
         const selectTag = document.getElementById('state');
+
         for(let state of data.states) {
             const option = document.createElement('option');
             option.value = state.abbreviation;
@@ -34,9 +30,9 @@ window.addEventListener('DOMContentLoaded', async () => {
         };
         const response = await fetch(locationUrl, fetchConfig);
         if (response.ok) {
-        formTag.reset();
-        const newLocation = await response.json();
-        // console.log(newLocation);
+            formTag.reset();
+            const newLocation = await response.json();
+            // console.log(newLocation);
         }
     });
 });
