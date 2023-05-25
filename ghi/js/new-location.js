@@ -1,3 +1,4 @@
+console.log('script running');
 window.addEventListener('DOMContentLoaded', async () => {
     const url = 'http://localhost:8000/api/states/';
     const response = await fetch(url);
@@ -7,6 +8,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const selectTag = document.getElementById('state');
 
         for(let state of data.states) {
+            console.log(state);
             const option = document.createElement('option');
             option.value = state.abbreviation;
             option.innerHTML = state.name;

@@ -9,7 +9,11 @@ from .models import Conference, Location, State
 
 class LocationListEncoder(ModelEncoder):
     model = Location
-    properties = ["id", "name", "picture_url"]
+    properties = [
+        "name",
+        "picture_url",
+        "id",
+        ]
 
 
 class LocationDetailEncoder(ModelEncoder):
@@ -114,8 +118,10 @@ def api_list_states(request):
 def api_list_locations(request):
     if request.method == "GET":
         locations = Location.objects.all()
-        location_list = [json.loads(LocationListEncoder().encode(location)) for location in locations]
-        return JsonResponse({"locations": location_list})
+        return JsonResponse(
+            {"locations": locations},
+            encoder=LocationListEncoder,
+            )
     else:
         content = json.loads(request.body)
 

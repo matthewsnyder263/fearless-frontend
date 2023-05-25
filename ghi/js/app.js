@@ -48,6 +48,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const location = details.conference.location.name;
                     const description = details.conference.description;
                     const pictureUrl = details.conference.location.picture_url;
+
                     // const column = document.querySelector('.col');
                     // column.innerHTML += html;
                     const startDate = details.conference.starts;
