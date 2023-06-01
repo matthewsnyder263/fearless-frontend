@@ -51,27 +51,6 @@ def send_message(queue_name, body):
 
 @require_http_methods(["GET", "POST"])
 def api_list_presentations(request, conference_id):
-    """
-    Lists the presentation titles and the link to the
-    presentation for the specified conference id.
-
-    Returns a dictionary with a single key "presentations"
-    which is a list of presentation titles and URLS. Each
-    entry in the list is a dictionary that contains the
-    title of the presentation, the name of its status, and
-    the link to the presentation's information.
-
-    {
-        "presentations": [
-            {
-                "title": presentation's title,
-                "status": presentation's status name
-                "href": URL to the presentation,
-            },
-            ...
-        ]
-    }
-    """
     if request.method == "GET":
         presentations = Presentation.objects.filter(conference=conference_id)
         return JsonResponse(
